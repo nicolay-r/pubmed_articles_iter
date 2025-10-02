@@ -22,5 +22,6 @@ No-API based implementation for:
 
 # AI Disclaimer
 
-The AI has been applied for fetching content from FTP and for constructing schemas. 
+The AI has been applied in implementation for: (i) `xml.gz` content downloader and (ii) XLM parsers.
+
 For several fields we adopt advances and techniques previously [exploied in `pubmed.py`](https://huggingface.co/datasets/ncbi/pubmed/blob/main/pubmed.py). 
