@@ -7,10 +7,9 @@ Non-official JSON-based articles extractor gz snapshot of articles with schema p
 Mostly driven by limitations of the existing approaches.
 
 ⚠️ **Limitations:**
-1. [`ncbi/pubmed` on Huggingface](https://huggingface.co/datasets/ncbi/pubmed) -- The existing **dropped the support for 2025** year with related schema
+1. [`ncbi/pubmed` on Huggingface](https://huggingface.co/datasets/ncbi/pubmed) -- The existing **dropped the support for 2025**
   * The [`pubmed.py`](https://huggingface.co/datasets/ncbi/pubmed/blob/main/pubmed.py) is based on `datasets` data fetcher. 
-  * This implementation requires to **contruct train split** which is time consumptive for an instant start
-  * The parser finds me [no longer compatible](https://huggingface.co/datasets/ncbi/pubmed/blob/main/pubmed.py#L40) with the `25` year and dump
+  * This implementation requires to **contruct train split** to skim through the whole data before start using it.
 2. [`pubmeb_parser` on Gihub](https://github.com/titipata/pubmed_parser) -- is not compatible for processing extrated `xml` for paper skimming
 
 ## Solution
