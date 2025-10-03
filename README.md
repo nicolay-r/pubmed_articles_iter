@@ -11,6 +11,7 @@ Mostly driven by limitations of the existing approaches.
   * The [`pubmed.py`](https://huggingface.co/datasets/ncbi/pubmed/blob/main/pubmed.py) is based on `datasets` data fetcher. 
   * This implementation requires to **contruct train split** to skim through the whole data before start using it.
 2. [`pubmeb_parser` on Gihub](https://github.com/titipata/pubmed_parser) -- is not compatible for processing extrated `xml` for paper skimming
+  * [`pp.parse_pubmed_references`](https://github.com/titipata/pubmed_parser?tab=readme-ov-file#parse-pubmed-oa-citation-references) returns `None` for unzipped `xml`.
 
 ## Solution
 
