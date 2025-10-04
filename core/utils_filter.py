@@ -8,7 +8,7 @@ def __filter_articles(articles_it, filter_func, ctr, pbar, current_file):
         if filter_func is not None and not filter_func(article):
             continue
         ctr['filtered'] += 1
-        pbar.set_postfix(file=current_file, found=ctr['found'])
+        pbar.set_postfix(file=current_file, filtered=ctr['filtered'])
         yield article
 
 
@@ -21,7 +21,6 @@ def iter_articles(filepaths, desc, filter_func=None, fp_handler=None):
     ctr = Counter()
     with tqdm(filepaths, desc=desc) as pbar:
         for filepath in pbar:
-            print(filepath)
             articles_it = fp_handler(file_path=filepath)
             filter_articles_it = __filter_articles(
                 articles_it=articles_it,
