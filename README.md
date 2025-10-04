@@ -1,7 +1,8 @@
 # pubmed_articles_iter
 
-Non-official JSON-based articles extractor for [PubMed Open-Access (OA) subset](https://pmc.ncbi.nlm.nih.gov/tools/ftp/) 
-of articles with schema parser for 2025.
+A [PubMed Open-Access (OA) subset](https://pmc.ncbi.nlm.nih.gov/tools/ftp/) XML to JSON converter for articles. 
+
+This repo represent an [iter-based implementation](https://github.com/nicolay-r/pubmed_articles_iter/blob/1dc021dbef965ad858b53b1a31eeb5237970d804/core/pubmed_parser.py#L6-L20) for the downloaded PubMed subset.
 
 # Motivation
 
@@ -14,12 +15,12 @@ Mostly driven by limitations of the existing approaches.
 2. [`pubmeb_parser` on GitHub](https://github.com/titipata/pubmed_parser) -- is not compatible for processing extracted `xml` for paper skimming
     * [`pp.parse_pubmed_references`](https://github.com/titipata/pubmed_parser?tab=readme-ov-file#parse-pubmed-oa-citation-references) returns `None` for unzipped `xml`.
 
-## Solution
+# Usage
 
-No-API based implementation for:
-1. Downloading `pubmed` resources 
-2. `XML` to `JSONL` conversion for `articles`
-
+Launch the following scripts:
+1. `pubmed_1_download.py` -- downloading `pubmed` resources;
+2. `pubmed_2_articles_xml_to_jsonl.py` -- `XML` to `JSONL` conversion for `articles`;
+   * It exploits the
 
 # AI Disclaimer
 
