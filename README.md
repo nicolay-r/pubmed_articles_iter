@@ -28,7 +28,7 @@ pip install git+https://github.com/nicolay-r/pubmed_articles_iter@master
 from pubmed_articles_iter.downloader import download_files
 
 download_files(
-    urls=[f"https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/pubmed25n{i:04d}.xml.gz" for i in range(1, 1220)],
+    urls=[f"https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/pubmed25n{i:04d}.xml.gz" for i in range(1, 1275)],
     output_dir='./pubmed_data',
     max_files=None
 )
