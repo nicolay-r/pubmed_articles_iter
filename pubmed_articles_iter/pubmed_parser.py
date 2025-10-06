@@ -43,6 +43,7 @@ def extract_article_data(article_element) -> Dict[str, Any]:
     article_data['abstract'] = extract_abstract(article_element)
     article_data['journal'] = extract_journal(article_element)
     article_data['publication_date'] = extract_publication_date(article_element)
+    article_data['mesh_headings'] = extract_mesh_headings(article_element)
 
     return article_data
 
@@ -135,3 +136,37 @@ def extract_publication_date(article_element) -> Dict[str, str]:
         date_info['day'] = day_elem.text.strip() if day_elem is not None and day_elem.text else ''
 
     return date_info
+
+
+def extract_mesh_headings(article_element) -> List[Dict[str, Any]]:
+    """Extract MeSH headings from the article."""
+    mesh_headings = []
+    
+    mesh_heading_list = article_element.find('.//MeshHeadingList')
+    if mesh_heading_list is not None:
+        for mesh_heading in mesh_heading_list.findall('MeshHeading'):
+            heading_data = {}
+            
+            # Extract descriptor name
+            descriptor_elem = mesh_heading.find('DescriptorName')
+            if descriptor_elem is not None:
+                heading_data['descriptor'] = {
+                    'name': descriptor_elem.text.strip() if descriptor_elem.text else '',
+                    'ui': descriptor_elem.get('UI', ''),
+                    'major_topic': descriptor_elem.get('MajorTopicYN', 'N') == 'Y'
+                }
+            
+            # Extract qualifier names
+            qualifiers = []
+            for qualifier_elem in mesh_heading.findall('QualifierName'):
+                qualifier_data = {
+                    'name': qualifier_elem.text.strip() if qualifier_elem.text else '',
+                    'ui': qualifier_elem.get('UI', ''),
+                    'major_topic': qualifier_elem.get('MajorTopicYN', 'N') == 'Y'
+                }
+                qualifiers.append(qualifier_data)
+            
+            heading_data['qualifiers'] = qualifiers
+            mesh_headings.append(heading_data)
+    
+    return mesh_headings
