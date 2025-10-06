@@ -180,17 +180,20 @@ def extract_publication_status(article_element) -> str:
     return status_elem.text.strip() if status_elem is not None and status_elem.text else ''
 
 
-def extract_article_ids(article_element) -> List[Dict[str, str]]:
+def extract_article_ids(article_element) -> Dict[str, str]:
     """Extract article IDs from the article."""
-    article_ids = []
+    article_ids = {}
     
     article_id_list = article_element.find('.//ArticleIdList')
     if article_id_list is not None:
         for article_id in article_id_list.findall('ArticleId'):
-            id_data = {
-                'id_type': article_id.get('IdType', ''),
-                'id_value': article_id.text.strip() if article_id.text else ''
-            }
-            article_ids.append(id_data)
+            id_type = article_id.get('IdType', '')
+            id_value = article_id.text.strip() if article_id.text else ''
+            if id_type and id_value:
+                # If the id_type already exists, append to it (comma-separated)
+                if id_type in article_ids:
+                    article_ids[id_type] = f"{article_ids[id_type]}, {id_value}"
+                else:
+                    article_ids[id_type] = id_value
     
     return article_ids
