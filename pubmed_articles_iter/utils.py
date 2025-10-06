@@ -4,5 +4,5 @@ from os.path import join
 
 def iter_dir_filepaths(root_dir):
     for (dirpath, _, filenames) in walk(root_dir):
-        for filename in filenames:
+        for filename in sorted(filenames):
             yield join(dirpath, filename)
