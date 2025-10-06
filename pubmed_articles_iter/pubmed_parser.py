@@ -152,26 +152,27 @@ def extract_mesh_headings(article_element) -> List[Dict[str, Any]]:
             # Extract descriptor name
             descriptor_elem = mesh_heading.find('DescriptorName')
             if descriptor_elem is not None:
-                heading_data['descriptor'] = {
-                    'name': descriptor_elem.text.strip() if descriptor_elem.text else '',
-                    'ui': descriptor_elem.get('UI', ''),
-                    'major_topic': descriptor_elem.get('MajorTopicYN', 'N') == 'Y'
-                }
+                heading_data['descriptor'] = extract_mesh_elem_data(descriptor_elem)
             
             # Extract qualifier names
             qualifiers = []
             for qualifier_elem in mesh_heading.findall('QualifierName'):
-                qualifier_data = {
-                    'name': qualifier_elem.text.strip() if qualifier_elem.text else '',
-                    'ui': qualifier_elem.get('UI', ''),
-                    'major_topic': qualifier_elem.get('MajorTopicYN', 'N') == 'Y'
-                }
+                qualifier_data = extract_mesh_elem_data(qualifier_elem)
                 qualifiers.append(qualifier_data)
             
             heading_data['qualifiers'] = qualifiers
             mesh_headings.append(heading_data)
     
     return mesh_headings
+
+
+def extract_mesh_elem_data(elem) -> Dict[str, Any]:
+    """Extract descriptor data from a DescriptorName element."""
+    return {
+        'name': elem.text.strip() if elem.text else '',
+        'ui': elem.get('UI', ''),
+        'major_topic': elem.get('MajorTopicYN', 'N') == 'Y'
+    }
 
 
 def extract_publication_status(article_element) -> str:
