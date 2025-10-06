@@ -44,6 +44,8 @@ def extract_article_data(article_element) -> Dict[str, Any]:
     article_data['journal'] = extract_journal(article_element)
     article_data['publication_date'] = extract_publication_date(article_element)
     article_data['mesh_headings'] = extract_mesh_headings(article_element)
+    article_data['publication_status'] = extract_publication_status(article_element)
+    article_data['article_ids'] = extract_article_ids(article_element)
 
     return article_data
 
@@ -170,3 +172,25 @@ def extract_mesh_headings(article_element) -> List[Dict[str, Any]]:
             mesh_headings.append(heading_data)
     
     return mesh_headings
+
+
+def extract_publication_status(article_element) -> str:
+    """Extract publication status from the article."""
+    status_elem = article_element.find('.//PublicationStatus')
+    return status_elem.text.strip() if status_elem is not None and status_elem.text else ''
+
+
+def extract_article_ids(article_element) -> List[Dict[str, str]]:
+    """Extract article IDs from the article."""
+    article_ids = []
+    
+    article_id_list = article_element.find('.//ArticleIdList')
+    if article_id_list is not None:
+        for article_id in article_id_list.findall('ArticleId'):
+            id_data = {
+                'id_type': article_id.get('IdType', ''),
+                'id_value': article_id.text.strip() if article_id.text else ''
+            }
+            article_ids.append(id_data)
+    
+    return article_ids
