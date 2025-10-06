@@ -15,12 +15,42 @@ Mostly driven by limitations of the existing approaches.
 2. [`pubmeb_parser` on GitHub](https://github.com/titipata/pubmed_parser) -- is not compatible for processing extracted `xml` for paper skimming
     * [`pp.parse_pubmed_references`](https://github.com/titipata/pubmed_parser?tab=readme-ov-file#parse-pubmed-oa-citation-references) returns `None` for unzipped `xml`.
 
+# Install
+
+```
+pip install git+https://github.com/nicolay-r/pubmed_articles_iter@master
+```
+
 # Usage
 
-Launch the following scripts:
-1. `pubmed_1_download.py` -- downloading `pubmed` resources;
-2. `pubmed_2_articles_xml_to_jsonl.py` -- `XML` to `JSONL` conversion for `articles`;
-   * It exploits the
+1. downloading `pubmed` resources:
+```python
+from pubmed_articles_iter.downloader import download_files
+
+download_files(
+    urls=[f"https://ftp.ncbi.nlm.nih.gov/pubmed/baseline/pubmed25n{i:04d}.xml.gz" for i in range(1, 1220)],
+    output_dir='./pubmed_data',
+    max_files=None
+)
+```
+
+2. `XML` to `JSONL` conversion for `articles`:
+```python
+from pubmed_articles_iter.pubmed_parser import pubmed_papers_it
+from pubmed_articles_iter.utils import iter_dir_filepaths
+from pubmed_articles_iter.utils_filter import iter_articles
+from pubmed_articles_iter.utils_jsonl import write_jsonl
+
+write_jsonl(
+    file_path=f"pubmed.jsonl",
+    records_it=iter_articles(
+        filepaths=iter_dir_filepaths(root_dir='./pubmed_data'),
+        filter_func=None,
+        desc="Converting PubMed XML to JSONL",
+        fp_handler=pubmed_papers_it,
+    )
+)
+```
 
 # AI Disclaimer
 
