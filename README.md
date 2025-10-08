@@ -1,8 +1,8 @@
 # pubmed_articles_iter
 
-A [PubMed Open-Access (OA) subset](https://pmc.ncbi.nlm.nih.gov/tools/ftp/) XML to JSON converter for articles. 
+An [iterator](https://github.com/nicolay-r/pubmed_articles_iter/blob/1dc021dbef965ad858b53b1a31eeb5237970d804/core/pubmed_parser.py#L6-L20) of parsed articles over [PubMed Open-Access (OA) subset](https://pmc.ncbi.nlm.nih.gov/tools/ftp/) `XML` data content.
 
-This repo represent an [iter-based implementation](https://github.com/nicolay-r/pubmed_articles_iter/blob/1dc021dbef965ad858b53b1a31eeb5237970d804/core/pubmed_parser.py#L6-L20) for the downloaded PubMed subset.
+As a one use-case this iterator utilized for converting `XML` data content into `JSONL`. 
 
 # Motivation
 
@@ -55,7 +55,7 @@ write_jsonl(
 # AI Disclaimer
 
 The AI has been applied in implementation for: 
-* (i) `xml.gz` content downloader,
-* (ii) XLM parsers.
+1. `xml.gz` content downloader
+2.  XLM parsers.
 
 For several fields we adopt advances and techniques previously [exploited in `pubmed.py`](https://huggingface.co/datasets/ncbi/pubmed/blob/main/pubmed.py). 
