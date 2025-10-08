@@ -6,9 +6,7 @@ As a one use-case this iterator utilized for converting `XML` data content into 
 
 # Motivation
 
-Mostly driven by limitations of the existing approaches.
-
-⚠️ **Limitations:**
+Mostly driven by limitations of the existing approaches:
 1. [`ncbi/pubmed` on Huggingface](https://huggingface.co/datasets/ncbi/pubmed) -- The existing **dropped the support for 2025**
     * The [`pubmed.py`](https://huggingface.co/datasets/ncbi/pubmed/blob/main/pubmed.py) is based on `datasets` data fetcher. 
     * This implementation requires to **construct train split** to skim through the whole data before start using it.
